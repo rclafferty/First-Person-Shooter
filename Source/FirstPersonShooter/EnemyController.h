@@ -5,6 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "FPSGameMode.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine.h"
+#include "Engine/World.h"
 #include "EnemyController.generated.h"
 
 UCLASS()
@@ -16,11 +20,6 @@ public:
 	// Sets default values for this actor's properties
 	AEnemyController();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -33,4 +32,12 @@ public:
 	FVector Direction;
 
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+private:
+	AActor* Player;
+	void MoveTowardsPlayer(float DeltaTime);
 };
